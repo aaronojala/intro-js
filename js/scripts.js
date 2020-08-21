@@ -116,9 +116,17 @@ function getEmail() {
 }
 
 function getPassword() {
-  // TODO
+  if (typeof document.registration.password === "undefined") {
+    return "";
+  } else {
+    return document.registration.password.value;
+  }
 }
 
 function getConfirmPassword() {
-  // TODO
+  if (typeof document.registration.password_confirm === "undefined") {
+    return "";
+  } else {
+    return document.registration.password.value;
+  }
 }

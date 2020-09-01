@@ -10,8 +10,17 @@ function validateForm(e) {
 
   if (validateUsername() && validateEmail() && validatePassword()) {
     var _newUser = getUserName();
-    // add code to update registeredUsers array with new user and call render function
-    // TODO
+    // 1. add code to update registerdUsers array with new user
+    registeredUsers.push(_newUser);
+
+    if (registeredUsers.length > 5) {
+      registeredUsers.shift();
+    }
+
+    // 2. call render function
+    document.getElementById("registered-users").innerHTML = "";
+    renderRegisteredUsers();
+
     document.registration.reset(); // reset form input fields
   }
 }
@@ -107,6 +116,14 @@ function getUserName() {
   }
 }
 
+/**
+ * this function looks under the form with name "registration"
+ * look under the "email" input field and returns the value of it
+ * returns nothing if no value is found
+ *
+ * @returns [String] user input or an empty string
+ */
+
 function getEmail() {
   if (typeof document.registration.email === "undefined") {
     return "";
@@ -115,18 +132,34 @@ function getEmail() {
   }
 }
 
+/**
+ * this function looks under the form with name "registration"
+ * look under the "password" input field and returns the value of it
+ * returns nothing if no value is found
+ *
+ * @returns [String] user input or an empty string
+ */
+
 function getPassword() {
   if (typeof document.registration.password === "undefined") {
-    return "";
+    return ""; // empty string
   } else {
     return document.registration.password.value;
   }
 }
 
+/**
+ * this function looks under the form with name "registration"
+ * look under the "password_confirm" input field and returns the value of it
+ * returns nothing if no value is found
+ *
+ * @returns [String] user input or an empty string
+ */
+
 function getConfirmPassword() {
   if (typeof document.registration.password_confirm === "undefined") {
-    return "";
+    return ""; // empty string
   } else {
-    return document.registration.password.value;
+    return document.registration.password_confirm.value;
   }
 }

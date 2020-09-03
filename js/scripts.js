@@ -163,3 +163,9 @@ function getConfirmPassword() {
     return document.registration.password_confirm.value;
   }
 }
+
+$(document).ready(function(){
+  $('.your-class').slick({
+    setting-name: setting-value
+  });
+});

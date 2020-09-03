@@ -1,12 +1,24 @@
+/**
+ * DOM Manipulation
+ *
+ * $ or jQuery or window.jQuery
+ *
+ * document.getElementById('someID') => $('#someID')
+ * document.getElementsByClassName('someClass') => $('.someClass')
+ * document.getElementsByTagName('someTag') => $('someTag')
+ * document.createElement('div').innerText = 'test'; => el = $('<div>test</div>')
+ * document.querySelectorAll('#someID .someClass someTag') => $('#someID .someClass someTag')
+ */
+
 var registeredUsers = []; // this array stores valid usernames until the next pageload
 
 function validateForm(e) {
   e.preventDefault(); // stop the submit button from refreshing the page
-  console.log("validating....");
+  console.log('validating....');
 
-  console.log("user name: " + validateUsername());
-  console.log("email: " + validateEmail());
-  console.log("password: " + validatePassword());
+  console.log('user name: ' + validateUsername());
+  console.log('email: ' + validateEmail());
+  console.log('password: ' + validatePassword());
 
   if (validateUsername() && validateEmail() && validatePassword()) {
     var _newUser = getUserName();
@@ -18,7 +30,8 @@ function validateForm(e) {
     }
 
     // 2. call render function
-    document.getElementById("registered-users").innerHTML = "";
+    // document.getElementById("registered-users").innerHTML = "";
+    $('#registered-users').empty();
     renderRegisteredUsers();
 
     document.registration.reset(); // reset form input fields
@@ -26,10 +39,19 @@ function validateForm(e) {
 }
 
 function renderRegisteredUsers() {
+  // $.each(registeredUsers, function(registeredUser){
+  //    $('<li>' + registeredUser + '</li>').appendTo('#registered-users')
+  // registeredUsers.forEach(function (registeredUser) {
+  //  var _newUser = document.createElement("li");
+  //  _newUser.innerHTML = registeredUser;
+  //  document.getElementById("registered-users").appendChild(_newUser);
+  //});
+
   registeredUsers.forEach(function (registeredUser) {
-    var _newUser = document.createElement("li");
-    _newUser.innerHTML = registeredUser;
-    document.getElementById("registered-users").appendChild(_newUser);
+    $('<li>' + registeredUser + '</li>').appendTo('#registered-users');
+    // var _newUser = document.createElement('li');
+    // _newUser.innerHTML = registeredUser;
+    // document.getElementById('registered-users').appendChild(_newUser);
   });
 }
 
@@ -55,13 +77,13 @@ function validateEmail() {
   }
 
   // check for @
-  var atSymbol = _email.indexOf("@");
+  var atSymbol = _email.indexOf('@');
   if (atSymbol < 1) {
     return false;
   }
 
   // check if there is a dot located less than 2 symbols away from the @ sign
-  var dot = _email.indexOf(".");
+  var dot = _email.indexOf('.');
   if (dot <= atSymbol + 2) {
     return false;
   }
@@ -98,7 +120,7 @@ function validatePassword() {
  * @returns [Boolean] true when valid, false otherwise
  */
 function checkSpace(sample) {
-  return sample === "" || sample.indexOf(" ") > -1;
+  return sample === '' || sample.indexOf(' ') > -1;
 }
 
 /**
@@ -109,11 +131,12 @@ function checkSpace(sample) {
  * @returns [String] user inpurt or an empty string
  */
 function getUserName() {
-  if (typeof document.registration.username === "undefined") {
-    return "";
-  } else {
-    return document.registration.username.value;
-  }
+  // if (typeof document.registration.username === "undefined") {
+  //  return "";
+  // } else {
+  //  return document.registration.username.value;
+  // }
+  return $('[name="username"]').val();
 }
 
 /**
@@ -125,11 +148,12 @@ function getUserName() {
  */
 
 function getEmail() {
-  if (typeof document.registration.email === "undefined") {
-    return "";
-  } else {
-    return document.registration.email.value;
-  }
+  //  if (typeof document.registration.email === "undefined") {
+  //    return "";
+  //  } else {
+  //    return document.registration.email.value;
+  //  }
+  return $('[name="email"]').val();
 }
 
 /**
@@ -141,11 +165,12 @@ function getEmail() {
  */
 
 function getPassword() {
-  if (typeof document.registration.password === "undefined") {
-    return ""; // empty string
-  } else {
-    return document.registration.password.value;
-  }
+  //  if (typeof document.registration.password === "undefined") {
+  //    return ""; // empty string
+  //  } else {
+  //    return document.registration.password.value;
+  //  }
+  return $('[name="password"]').val();
 }
 
 /**
@@ -157,15 +182,48 @@ function getPassword() {
  */
 
 function getConfirmPassword() {
-  if (typeof document.registration.password_confirm === "undefined") {
-    return ""; // empty string
-  } else {
-    return document.registration.password_confirm.value;
-  }
+  //  if (typeof document.registration.password_confirm === "undefined") {
+  //    return ""; // empty string
+  //  } else {
+  //    return document.registration.password_confirm.value;
+  //  }
+  return $('[name="password_confirm"]').val();
 }
 
-$(document).ready(function(){
-  $('.your-class').slick({
-    setting-name: setting-value
+var sliderEl = document.createElement('section');
+sliderEl.classList.add('lazy', 'slider');
+sliderEl.setAttribute('data-sizes', '50vw');
+document.body.appendChild(sliderEl);
+
+function addSlide(imgUrl) {
+  var slide = document.createElement('div');
+  var slideImage = document.createElement('img');
+  slideImage.setAttribute('data-lazy', imgUrl);
+  slideImage.setAttribute('data-srcset', imgUrl);
+  slideImage.setAttribute('data-sizes', '100vw');
+  slide.appendChild(slideImage);
+
+  sliderEl.appendChild(slide);
+}
+
+var imgUrl =
+  '//www.partioaitta.fi/bo-assets/binaryImages/96/klubitarjoukset-syyskuu-1500x450-35796.jpg?v=a2f7e6b30e35dcebdce0ae0d0c278e93';
+
+addSlide(imgUrl);
+addSlide(imgUrl);
+addSlide(imgUrl);
+addSlide(imgUrl);
+addSlide(imgUrl);
+addSlide(imgUrl);
+addSlide(imgUrl);
+addSlide(imgUrl);
+
+$(document).ready(function () {
+  $('.lazy').slick({
+    lazyLoad: 'ondemand',
+    infinite: true,
+    dots: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
   });
 });

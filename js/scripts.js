@@ -1,3 +1,25 @@
+/* AJAX weather function */
+
+$.ajax({
+  url:
+    "http://api.openweathermap.org/data/2.5/weather?q=helsinki&appid=dd451544892b0f3811ed49d213e284af",
+}).done(function (resp) {
+  console.log(resp);
+  console.log(resp.main.temp);
+  console.log(resp.main.feels_like);
+  var sentence =
+    "Helsinki temperature today is " +
+    resp.main.temp +
+    " and it feels like " +
+    resp.main.feels_like;
+
+  console.log(sentence);
+
+  $("body").text(sentence); // display sentence in DOM with Jquery blocks everything else
+
+  /* document.body.innerText = sentence; */ //display sentince in DOM using vanilla JS
+});
+
 /**
  * DOM Manipulation
  *
@@ -14,11 +36,11 @@ var registeredUsers = []; // this array stores valid usernames until the next pa
 
 function validateForm(e) {
   e.preventDefault(); // stop the submit button from refreshing the page
-  console.log('validating....');
+  console.log("validating....");
 
-  console.log('user name: ' + validateUsername());
-  console.log('email: ' + validateEmail());
-  console.log('password: ' + validatePassword());
+  console.log("user name: " + validateUsername());
+  console.log("email: " + validateEmail());
+  console.log("password: " + validatePassword());
 
   if (validateUsername() && validateEmail() && validatePassword()) {
     var _newUser = getUserName();
@@ -31,7 +53,7 @@ function validateForm(e) {
 
     // 2. call render function
     // document.getElementById("registered-users").innerHTML = "";
-    $('#registered-users').empty();
+    $("#registered-users").empty();
     renderRegisteredUsers();
 
     document.registration.reset(); // reset form input fields
@@ -48,7 +70,7 @@ function renderRegisteredUsers() {
   //});
 
   registeredUsers.forEach(function (registeredUser) {
-    $('<li>' + registeredUser + '</li>').appendTo('#registered-users');
+    $("<li>" + registeredUser + "</li>").appendTo("#registered-users");
     // var _newUser = document.createElement('li');
     // _newUser.innerHTML = registeredUser;
     // document.getElementById('registered-users').appendChild(_newUser);
@@ -77,13 +99,13 @@ function validateEmail() {
   }
 
   // check for @
-  var atSymbol = _email.indexOf('@');
+  var atSymbol = _email.indexOf("@");
   if (atSymbol < 1) {
     return false;
   }
 
   // check if there is a dot located less than 2 symbols away from the @ sign
-  var dot = _email.indexOf('.');
+  var dot = _email.indexOf(".");
   if (dot <= atSymbol + 2) {
     return false;
   }
@@ -120,7 +142,7 @@ function validatePassword() {
  * @returns [Boolean] true when valid, false otherwise
  */
 function checkSpace(sample) {
-  return sample === '' || sample.indexOf(' ') > -1;
+  return sample === "" || sample.indexOf(" ") > -1;
 }
 
 /**
@@ -190,24 +212,24 @@ function getConfirmPassword() {
   return $('[name="password_confirm"]').val();
 }
 
-var sliderEl = document.createElement('section');
-sliderEl.classList.add('lazy', 'slider');
-sliderEl.setAttribute('data-sizes', '50vw');
+var sliderEl = document.createElement("section");
+sliderEl.classList.add("lazy", "slider");
+sliderEl.setAttribute("data-sizes", "50vw");
 document.body.appendChild(sliderEl);
 
 function addSlide(imgUrl) {
-  var slide = document.createElement('div');
-  var slideImage = document.createElement('img');
-  slideImage.setAttribute('data-lazy', imgUrl);
-  slideImage.setAttribute('data-srcset', imgUrl);
-  slideImage.setAttribute('data-sizes', '100vw');
+  var slide = document.createElement("div");
+  var slideImage = document.createElement("img");
+  slideImage.setAttribute("data-lazy", imgUrl);
+  slideImage.setAttribute("data-srcset", imgUrl);
+  slideImage.setAttribute("data-sizes", "100vw");
   slide.appendChild(slideImage);
 
   sliderEl.appendChild(slide);
 }
 
 var imgUrl =
-  '//www.partioaitta.fi/bo-assets/binaryImages/96/klubitarjoukset-syyskuu-1500x450-35796.jpg?v=a2f7e6b30e35dcebdce0ae0d0c278e93';
+  "//www.partioaitta.fi/bo-assets/binaryImages/96/klubitarjoukset-syyskuu-1500x450-35796.jpg?v=a2f7e6b30e35dcebdce0ae0d0c278e93";
 
 addSlide(imgUrl);
 addSlide(imgUrl);
@@ -219,8 +241,8 @@ addSlide(imgUrl);
 addSlide(imgUrl);
 
 $(document).ready(function () {
-  $('.lazy').slick({
-    lazyLoad: 'ondemand',
+  $(".lazy").slick({
+    lazyLoad: "ondemand",
     infinite: true,
     dots: true,
     autoplay: true,

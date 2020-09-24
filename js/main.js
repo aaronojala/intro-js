@@ -3,8 +3,8 @@
 
   // popup management code starts here
 
-  window.document.addEventListener("mouseleave", function () {
-    document.getElementById("popup1").style.visibility = "visible";
+  document.addEventListener("mouseleave", function () {
+    document.getElementById("popup1").classList.add("show");
   });
 
   document

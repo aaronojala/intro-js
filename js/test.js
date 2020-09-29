@@ -1,4 +1,4 @@
-console.log('Hello world');
+/* console.log('Hello world');
 
 document.getElementById('slogan').innerText = 'We hate our customers';
 
@@ -26,3 +26,4 @@ newsletterEl.appendChild(navLinkEl);
 document
   .querySelectorAll('#navigation .navbar-nav.mr-auto')[0]
   .appendChild(newsletterEl);
+ */
